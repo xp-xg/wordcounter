@@ -1,0 +1,30 @@
+{
+  "title": "Contador de Palabras",
+  "placeholder": "Escribe o pega tu texto aquí...",
+  "clearText": "Limpiar Texto",
+  "exportTxt": "Exportar como TXT",
+  "words": "Palabras",
+  "characters": "Caracteres",
+  "sentences": "Frases",
+  "paragraphs": "Párrafos",
+  "readingTime": "Tiempo de Lectura (minutos)",
+  "keywordDensity": "Densidad de Palabras Clave",
+  "aboutUs": "Sobre Nosotros",
+  "aboutText": "Esta es una sencilla aplicación de contador de palabras creada con React y Material-UI.",
+  "contactUs": "Contáctanos",
+  "contactText": "¿Tienes preguntas o comentarios? Rellena el siguiente formulario para ponerte en contacto con nosotros.",
+  "nameLabel": "Nombre",
+  "emailLabel": "Correo Electrónico",
+  "messageLabel": "Mensaje",
+  "submitButton": "Enviar",
+  "wordCounter": "Contador de Palabras",
+  "about": "Sobre nosotros",
+  "contact": "Contacto",
+  "howToUse": {
+    "title": "Cómo Usar",
+    "step1": "Pega tu texto en el área de texto.",
+    "step2": "Obtén información instantánea sobre el recuento de palabras, caracteres y más.",
+    "step3": "Exporta tu texto como un archivo .txt.",
+    "step4": "Limpia el área de texto para empezar de nuevo."
+  }
+}

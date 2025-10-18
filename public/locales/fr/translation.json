@@ -1,0 +1,30 @@
+{
+  "title": "Compteur de Mots",
+  "placeholder": "Saisissez ou collez votre texte ici...",
+  "clearText": "Effacer le Texte",
+  "exportTxt": "Exporter en TXT",
+  "words": "Mots",
+  "characters": "Caractères",
+  "sentences": "Phrases",
+  "paragraphs": "Paragraphes",
+  "readingTime": "Temps de Lecture (minutes)",
+  "keywordDensity": "Densité des Mots-clés",
+  "aboutUs": "À Propos de Nous",
+  "aboutText": "Ceci est une simple application de compteur de mots construite avec React et Material-UI.",
+  "contactUs": "Contactez-Nous",
+  "contactText": "Vous avez des questions ou des commentaires ? Remplissez le formulaire ci-dessous pour nous contacter.",
+  "nameLabel": "Nom",
+  "emailLabel": "E-mail",
+  "messageLabel": "Message",
+  "submitButton": "Envoyer",
+  "wordCounter": "Compteur de Mots",
+  "about": "À propos",
+  "contact": "Contact",
+  "howToUse": {
+    "title": "Comment Utiliser",
+    "step1": "Collez votre texte dans la zone de texte.",
+    "step2": "Obtenez des informations instantanées sur le nombre de mots, de caractères et plus encore.",
+    "step3": "Exportez votre texte en tant que fichier .txt.",
+    "step4": "Effacez la zone de texte pour recommencer."
+  }
+}

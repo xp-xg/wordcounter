@@ -1,0 +1,21 @@
+
+{
+    "wordCounter": "Word Counter",
+    "characterCount": "Character Count",
+    "wordCount": "Word Count",
+    "sentenceCount": "Sentence Count",
+    "paragraphCount": "Paragraph Count",
+    "readingTime": "Reading Time",
+    "keywordDensity": "Keyword Density",
+    "clearText": "Clear Text",
+    "howToUse": "How to Use",
+    "howToUseText": "Simply start typing or paste your text into the text area above to get instant analysis. The word count, character count, and other metrics will update in real-time. You can also switch between light and dark modes, and change the language of the interface.",
+    "about": "About Us",
+    "aboutText": "This Word Counter application is a simple and powerful tool to analyze your text. It provides a variety of metrics to help you understand your writing better. Whether you are a student, a writer, or a professional, this tool can help you improve your writing and meet your goals.",
+    "contactUs": "Contact Us",
+    "contactText": "If you have any questions, feedback, or suggestions, please feel free to reach out to us. We would love to hear from you!",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "messageLabel": "Message",
+    "submitButton": "Submit"
+}

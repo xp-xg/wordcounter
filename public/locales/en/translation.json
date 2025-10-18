@@ -1,0 +1,30 @@
+{
+  "title": "Word Counter",
+  "placeholder": "Type or paste your text here...",
+  "clearText": "Clear Text",
+  "exportTxt": "Export as TXT",
+  "words": "Words",
+  "characters": "Characters",
+  "sentences": "Sentences",
+  "paragraphs": "Paragraphs",
+  "readingTime": "Reading Time (minutes)",
+  "keywordDensity": "Keyword Density",
+  "aboutUs": "About Us",
+  "aboutText": "This is a simple word counter application built with React and Material-UI.",
+  "contactUs": "Contact Us",
+  "contactText": "Have questions or feedback? Fill out the form below to get in touch with us.",
+  "nameLabel": "Name",
+  "emailLabel": "Email",
+  "messageLabel": "Message",
+  "submitButton": "Submit",
+  "wordCounter": "Word Counter",
+  "about": "About",
+  "contact": "Contact",
+  "howToUse": {
+    "title": "How to Use",
+    "step1": "Paste your text into the text area.",
+    "step2": "Get instant insights on word count, character count, and more.",
+    "step3": "Export your text as a .txt file.",
+    "step4": "Clear the text area to start over."
+  }
+}
