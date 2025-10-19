@@ -1,11 +1,5 @@
 import { useEffect } from 'react';
 
-declare global {
-  interface Window {
-    gtag: any;
-  }
-}
-
 export const useAnalytics = (trackingId?: string) => {
   useEffect(() => {
     // In a real implementation, you would load the Google Analytics script
@@ -18,11 +12,13 @@ export const useAnalytics = (trackingId?: string) => {
       document.head.appendChild(script);
 
       script.onload = () => {
-        window.gtag = window.gtag || function() {
-          (window.gtag.q = window.gtag.q || []).push(arguments);
-        };
-        window.gtag('js', new Date());
-        window.gtag('config', trackingId);
+        if (!window.gtag) {
+          (window.gtag as any) = function() {
+            (window.dataLayer = window.dataLayer || []).push(arguments);
+          };
+        }
+        window.gtag?.('js', new Date());
+        window.gtag?.('config', trackingId);
       };
 
       // Create inline script for gtag function
@@ -48,7 +44,7 @@ export const useAnalytics = (trackingId?: string) => {
   // Track page views
   useEffect(() => {
     if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'page_view', {
+      window.gtag?.('event', 'page_view', {
         page_title: document.title,
         page_location: window.location.href,
       });

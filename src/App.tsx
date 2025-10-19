@@ -22,11 +22,11 @@ const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(true);
-  const { t } = useTranslation();
-
+  
   // Initialize Google Analytics with user consent
   // In production, replace with your actual GA4 Measurement ID
-  useGoogleAnalytics(import.meta.env.VITE_GA_MEASUREMENT_ID || "G-XXXXXXXXXX");
+  const measurementId = (import.meta as any).env?.VITE_GA_MEASUREMENT_ID || "G-XXXXXXXXXX";
+  useGoogleAnalytics(measurementId);
 
   // Initialize error logging
   // In production, connect to external service with: errorLogger.init('your-logging-service-endpoint');

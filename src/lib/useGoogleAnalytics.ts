@@ -33,7 +33,7 @@ export const useGoogleAnalytics = (gaMeasurementId?: string) => {
         
         // Send initial page view
         if (typeof window !== 'undefined' && window.gtag) {
-          window.gtag('event', 'page_view', {
+          window.gtag?.('event', 'page_view', {
             page_title: document.title,
             page_location: window.location.href
           });
@@ -50,7 +50,7 @@ export const useGoogleAnalytics = (gaMeasurementId?: string) => {
 
     const sendPageView = () => {
       if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'page_view', {
+        window.gtag?.('event', 'page_view', {
           page_title: document.title,
           page_location: window.location.href
         });

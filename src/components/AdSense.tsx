@@ -2,12 +2,6 @@ import { useEffect } from 'react';
 import { useConsent } from './CookieConsentBanner';
 import { initializeAdSense } from '../lib/googleConsentMode';
 
-declare global {
-  interface Window {
-    adsbygoogle: any[];
-  }
-}
-
 interface AdSenseProps {
   adSlot: string;
   adFormat?: string;

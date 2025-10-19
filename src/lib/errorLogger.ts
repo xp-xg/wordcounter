@@ -53,10 +53,11 @@ class ErrorLogger {
     }
   }
 
-  private async sendToExternalService(error: ErrorLog) {
+  private async sendToExternalService(errorLog: ErrorLog) {
     // In production, this would send to your error tracking service
     // Example for Sentry: Sentry.captureException(error);
     // Example for other services would have their own specific implementation
+    console.log('Sending error to external service:', errorLog);
   }
 
   private storeErrorLocally(error: ErrorLog) {

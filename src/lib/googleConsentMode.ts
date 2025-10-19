@@ -4,7 +4,6 @@
  */
 
 // Define types for Google Consent Mode
-type ConsentType = 'ad_storage' | 'analytics_storage' | 'ad_user_data' | 'ad_personalization';
 type ConsentStatus = 'granted' | 'denied';
 
 declare global {
@@ -35,7 +34,7 @@ export const initializeConsentMode = () => {
   // Configure default consent states
   // Set default consent state - initially denying all for GDPR compliance
   if (window.gtag) {
-    window.gtag('consent', 'default', DEFAULT_CONSENT_STATE);
+    window.gtag?.('consent', 'default', DEFAULT_CONSENT_STATE);
   } else {
     // If gtag is not available yet, push the consent command to dataLayer
     // This will be processed when gtag script loads
@@ -68,7 +67,7 @@ export const updateConsent = (preferences: {
 
   // Update consent - try gtag first, fallback to dataLayer
   if (window.gtag) {
-    window.gtag('consent', 'update', consentUpdate);
+    window.gtag?.('consent', 'update', consentUpdate);
   } else {
     // If gtag is not available yet, push the consent command to dataLayer
     window.dataLayer = window.dataLayer || [];
@@ -116,7 +115,7 @@ export const configureAnalyticsWithConsent = (gaMeasurementId: string) => {
 
   // Configure GA with consent - try gtag first, fallback to dataLayer
   if (window.gtag) {
-    window.gtag('config', gaMeasurementId, {
+    window.gtag?.('config', gaMeasurementId, {
       // Anonymize IP for GDPR compliance
       anonymize_ip: true,
       // Don't send page views automatically - we'll control this based on consent
@@ -134,7 +133,7 @@ export const configureAnalyticsWithConsent = (gaMeasurementId: string) => {
 
   // Send initial page view
   if (window.gtag) {
-    window.gtag('event', 'page_view', {
+    window.gtag?.('event', 'page_view', {
       page_title: document.title,
       page_location: window.location.href
     });
