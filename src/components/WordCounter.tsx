@@ -1,14 +1,21 @@
 
-import { useState } from "react";
-import { TextField, Card, CardContent, Typography, Button, Box, Chip, Paper } from "@mui/material";
+import { useState, useMemo, useCallback } from "react";
+import { TextField, Card, CardContent, Typography, Button, Box, Chip, Paper, Link } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { saveAs } from "file-saver";
 import { stopwords } from "../lib/stopwords";
 import HowToUse from "./HowToUse";
+import AdSense from "./AdSense";
+import { useDebounce } from "../lib/useDebounce";
+import { useDocumentTitle, useMetaDescription } from "../lib/useDocumentTitle";
+import { useStructuredData } from "../lib/useStructuredData";
 
 const WordCounter = () => {
   const { t, i18n } = useTranslation();
   const [text, setText] = useState("");
+
+  // Use debounced version of text for expensive operations
+  const debouncedText = useDebounce(text, 500); // 500ms delay
 
   const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
   const charCount = text.length;
@@ -16,10 +23,44 @@ const WordCounter = () => {
   const paragraphCount = text.split(/\n+/).filter(Boolean).length;
   const readingTime = Math.ceil(wordCount / 200);
 
-  const handleExportTxt = () => {
+  // SEO optimization with dynamic meta tags
+  useDocumentTitle(t("freeWordCounterOnline"));
+  useMetaDescription(t("freeWordCounterDescription"));
+
+  // Structured data for search engines
+  useStructuredData({
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": t("freeWordCounterOnline"),
+    "description": t("freeWordCounterDescription"),
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": t("wordCounter")
+    },
+    "potentialAction": {
+      "@type": "ConsumeAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://yourdomain.com/",
+        "actionPlatform": [
+          "https://schema.org/DesktopWebPlatform",
+          "https://schema.org/MobileWebPlatform"
+        ]
+      }
+    }
+  });
+
+  const handleExportTxt = useCallback(() => {
     const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
     saveAs(blob, "text.txt");
-  };
+  }, [text]);
 
   const getKeywordDensity = (text: string) => {
     const currentLanguage = i18n.language;
@@ -48,7 +89,8 @@ const WordCounter = () => {
     return sortedKeywords;
   };
 
-  const keywordDensity = getKeywordDensity(text);
+  // Use memoization to avoid recalculation unless debouncedText changes
+  const keywordDensity = useMemo(() => getKeywordDensity(debouncedText), [debouncedText]);
 
   const stats = [
     { label: t('words'), value: wordCount },
@@ -58,12 +100,19 @@ const WordCounter = () => {
     { label: t('readingTime'), value: readingTime },
   ];
 
+  const handleClearText = useCallback(() => {
+    setText("");
+  }, [setText]);
+
   return (
     <>
       <Card>
         <CardContent sx={{ p: 4 }}>
           <Typography variant="h4" component="h1" gutterBottom sx={{ textAlign: 'center', mb: 3 }}>
             {t('title')}
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 2, textAlign: 'center' }}>
+            {t("bestFreeTool")}
           </Typography>
           <TextField
             multiline
@@ -76,7 +125,7 @@ const WordCounter = () => {
             sx={{ mb: 3 }}
           />
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4 }}>
-            <Button variant="contained" color="primary" onClick={() => setText("")}>
+            <Button variant="contained" color="primary" onClick={handleClearText}>
               {t("clearText")}
             </Button>
             <Button variant="outlined" color="secondary" onClick={handleExportTxt}>
@@ -112,7 +161,37 @@ const WordCounter = () => {
           )}
         </CardContent>
       </Card>
+      
+      {/* AdSense Ad - Top of HowToUse section */}
+      <Box sx={{ my: 3, textAlign: 'center' }}>
+        <AdSense 
+          adSlot="XXXXXXXXXXXXXX" 
+          adFormat="horizontal" 
+          style={{ display: 'block', textAlign: 'center' }}
+        />
+      </Box>
+      
       <HowToUse />
+      
+      {/* AdSense Ad - Bottom of page */}
+      <Box sx={{ my: 3, textAlign: 'center' }}>
+        <AdSense 
+          adSlot="XXXXXXXXXXXXXX" 
+          adFormat="horizontal" 
+          style={{ display: 'block', textAlign: 'center' }}
+        />
+      </Box>
+      
+      {/* Related articles section */}
+      <Box sx={{ mt: 4, p: 2, textAlign: 'center' }}>
+        <Typography variant="h6" gutterBottom>{t("learnMoreAboutTextAnalysis")}</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 1, flexWrap: 'wrap' }}>
+          <Link href="/resources" color="secondary" underline="hover">{t("writingTips")}</Link>
+          <Link href="/resources" color="secondary" underline="hover">{t("seoContentOptimization")}</Link>
+          <Link href="/resources" color="secondary" underline="hover">{t("textAnalysisTechniques")}</Link>
+          <Link href="/about" color="secondary" underline="hover">{t("aboutOurTool")}</Link>
+        </Box>
+      </Box>
     </>
   );
 };

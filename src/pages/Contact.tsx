@@ -1,10 +1,28 @@
 
-import { Typography, Container, TextField, Button, Box, Paper } from "@mui/material";
+import { Typography, Container, TextField, Button, Box, Paper, Link } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import ContactMailIcon from '@mui/icons-material/ContactMail';
+import { useDocumentTitle, useMetaDescription } from "../lib/useDocumentTitle";
+import { useStructuredData } from "../lib/useStructuredData";
 
 const Contact = () => {
   const { t } = useTranslation();
+  
+  useDocumentTitle(t("freeWordCounterSupport"));
+  useMetaDescription(t("supportForQuestions"));
+
+  // Add structured data for the Contact page
+  useStructuredData({
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": t("freeWordCounterSupport"),
+    "description": t("supportForQuestions"),
+    "url": "https://yourdomain.com/contact",
+    "potentialAction": {
+      "@type": "Contact",
+      "name": t("submitButton")
+    }
+  });
 
   return (
     <Container maxWidth="md" sx={{ my: 4 }}>
@@ -15,8 +33,8 @@ const Contact = () => {
             {t("contactUs")}
           </Typography>
         </Box>
-        <Typography variant="body1" sx={{ mb: 4 }}>
-          {t("contactText")}
+        <Typography variant="body1" sx={{ mb: 4 }} paragraph>
+          {t("questionsSuggestionsFeedback")}
         </Typography>
         <Box component="form" noValidate autoComplete="off">
           <TextField
@@ -43,6 +61,21 @@ const Contact = () => {
           <Button variant="contained" color="primary" sx={{ mt: 2 }}>
             {t("submitButton")}
           </Button>
+        </Box>
+        <Typography variant="body2" sx={{ mt: 3, color: 'text.secondary' }}>
+          {t("visitResourcesForHelp")}
+        </Typography>
+        
+        {/* Internal links section */}
+        <Box sx={{ mt: 4, pt: 3, borderTop: '1px solid rgba(255,255,255,0.2)' }}>
+          <Typography variant="h6" gutterBottom>{t("exploreOurToolsResources")}</Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 2, mt: 1, flexWrap: 'wrap' }}>
+            <Link href="/" color="secondary" underline="hover">{t("freeWordCounterTool")}</Link>
+            <Link href="/resources" color="secondary" underline="hover">{t("writingGuides")}</Link>
+            <Link href="/about" color="secondary" underline="hover">{t("aboutUs")}</Link>
+            <Link href="/privacy-policy" color="secondary" underline="hover">{t("privacyPolicy")}</Link>
+            <Link href="/terms-of-service" color="secondary" underline="hover">{t("termsOfService")}</Link>
+          </Box>
         </Box>
       </Paper>
     </Container>

@@ -1,30 +1,52 @@
 import { useEffect } from 'react';
+import { useConsent } from './CookieConsentBanner';
+import { initializeAdSense } from '../lib/googleConsentMode';
 
 declare global {
-    interface Window {
-        adsbygoogle: {[key: string]: unknown}[];
-    }
+  interface Window {
+    adsbygoogle: any[];
+  }
 }
 
-const AdSense = () => {
+interface AdSenseProps {
+  adSlot: string;
+  adFormat?: string;
+  fullWidthResponsive?: boolean;
+  style?: React.CSSProperties;
+}
+
+const AdSense = ({ 
+  adSlot, 
+  adFormat = 'auto', 
+  fullWidthResponsive = true,
+  style = { display: 'block' }
+}: AdSenseProps) => {
+  const { consent } = useConsent();
+
   useEffect(() => {
-    // try {
-    //   (window.adsbygoogle = window.adsbygoogle || []).push({});
-    // } catch (err) {
-    //   console.error(err);
-    // }
-  }, []);
+    // Only load ads if user has consented to advertising
+    if (!consent?.advertising) {
+      return;
+    }
+
+    // Initialize AdSense with proper consent
+    initializeAdSense();
+  }, [consent?.advertising, adSlot]);
+
+  // Don't render anything if user hasn't consented to advertising
+  if (!consent?.advertising) {
+    return null;
+  }
 
   return (
-    <div style={{ textAlign: 'center', margin: '20px 0' }}>
-      <p>Advertisement</p>
-      {/* <ins className="adsbygoogle"
-           style={{ display: 'block' }}
-           data-ad-client="ca-pub-your-ad-client-id"
-           data-ad-slot="your-ad-slot-id"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins> */}
-    </div>
+    <ins
+      className="adsbygoogle"
+      style={style}
+      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+      data-ad-slot={adSlot}
+      data-ad-format={adFormat}
+      data-full-width-responsive={fullWidthResponsive ? 'true' : 'false'}
+    />
   );
 };
 

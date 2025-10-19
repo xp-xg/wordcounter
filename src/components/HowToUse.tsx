@@ -1,5 +1,5 @@
 
-import { Typography, Paper, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Typography, Paper, List, ListItem, ListItemIcon, ListItemText, Link } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
@@ -27,6 +27,52 @@ const HowToUse = () => {
             <ListItemText primary={text} />
           </ListItem>
         ))}
+      </List>
+      
+      {/* Related resources section */}
+      <Typography variant="h6" component="h3" gutterBottom sx={{ mt: 3 }}>
+        {t("relatedResources")}
+      </Typography>
+      <List>
+        <ListItem>
+          <ListItemIcon>
+            <CheckCircleIcon color="secondary" />
+          </ListItemIcon>
+          <ListItemText 
+            primary={
+              <Link href="/resources" color="secondary" underline="hover">
+                {t("writingTips")}
+              </Link>
+            } 
+            secondary={t("seoContentOptimization")} 
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <CheckCircleIcon color="secondary" />
+          </ListItemIcon>
+          <ListItemText 
+            primary={
+              <Link href="/resources" color="secondary" underline="hover">
+                {t("textAnalysisTechniques")}
+              </Link>
+            } 
+            secondary={t("aboutOurTool")} 
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <CheckCircleIcon color="secondary" />
+          </ListItemIcon>
+          <ListItemText 
+            primary={
+              <Link href="/about" color="secondary" underline="hover">
+                {t("aboutUs")}
+              </Link>
+            } 
+            secondary={t("learnMoreAboutTextAnalysis")} 
+          />
+        </ListItem>
       </List>
     </Paper>
   );

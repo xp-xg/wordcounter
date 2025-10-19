@@ -10,6 +10,17 @@ interface NavbarProps {
   setDarkMode: (darkMode: boolean) => void;
 }
 
+// Define the supported languages with their codes and display names
+const SUPPORTED_LANGUAGES = [
+  { code: "en", name: "English" },
+  { code: "es", name: "Español" },
+  { code: "fr", name: "Français" },
+  { code: "hi", name: "हिन्दी" },
+  { code: "de", name: "Deutsch" },
+  { code: "ja", name: "日本語" },
+  { code: "zh", name: "中文" },
+];
+
 const Navbar = ({ darkMode, setDarkMode }: NavbarProps) => {
   const { t, i18n } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -42,6 +53,9 @@ const Navbar = ({ darkMode, setDarkMode }: NavbarProps) => {
           <Button sx={{ color: 'inherit', fontWeight: 600 }} component={Link} to="/contact">
             {t("contact")}
           </Button>
+          <Button sx={{ color: 'inherit', fontWeight: 600 }} component={Link} to="/cookie-policy">
+            {t("cookies")}
+          </Button>
         </Box>
         <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
         <IconButton
@@ -69,10 +83,14 @@ const Navbar = ({ darkMode, setDarkMode }: NavbarProps) => {
           open={Boolean(anchorEl)}
           onClose={handleLanguageMenuClose}
         >
-          <MenuItem onClick={() => changeLanguage("en")}>English</MenuItem>
-          <MenuItem onClick={() => changeLanguage("es")}>Español</MenuItem>
-          <MenuItem onClick={() => changeLanguage("fr")}>Français</MenuItem>
-          <MenuItem onClick={() => changeLanguage("hi")}>हिन्दी</MenuItem>
+          {SUPPORTED_LANGUAGES.map((language) => (
+            <MenuItem 
+              key={language.code} 
+              onClick={() => changeLanguage(language.code)}
+            >
+              {language.name}
+            </MenuItem>
+          ))}
         </Menu>
       </Toolbar>
     </AppBar>

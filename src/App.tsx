@@ -1,16 +1,36 @@
 
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { CssBaseline, Container, GlobalStyles } from "@mui/material";
+import { CssBaseline, Container, GlobalStyles, CircularProgress, Box } from "@mui/material";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WordCounter from "./components/WordCounter";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
+import CookieConsentBanner from "./components/CookieConsentBanner";
+import { useDocumentTitle, useMetaDescription } from "./lib/useDocumentTitle";
+import { useTranslation } from "react-i18next";
+import { useGoogleAnalytics } from "./lib/useGoogleAnalytics";
+import { errorLogger } from "./lib/errorLogger";
+
+// Lazy load pages for code splitting
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
+const Resources = lazy(() => import("./pages/Resources"));
+const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(true);
+  const { t } = useTranslation();
+
+  // Initialize Google Analytics with user consent
+  // In production, replace with your actual GA4 Measurement ID
+  useGoogleAnalytics(import.meta.env.VITE_GA_MEASUREMENT_ID || "G-XXXXXXXXXX");
+
+  // Initialize error logging
+  // In production, connect to external service with: errorLogger.init('your-logging-service-endpoint');
+  errorLogger.init(); 
 
   const theme = createTheme({
     palette: {
@@ -113,15 +133,81 @@ const App = () => {
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <Container maxWidth="md" sx={{ my: 4 }}>
           <Routes>
-            <Route path="/" element={<WordCounter />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/" element={
+              <>
+                <DocumentHead />
+                <WordCounter />
+              </>
+            } />
+            <Route path="/about" element={
+              <Suspense fallback={
+                <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+                  <CircularProgress />
+                </Box>
+              }>
+                <About />
+              </Suspense>
+            } />
+            <Route path="/contact" element={
+              <Suspense fallback={
+                <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+                  <CircularProgress />
+                </Box>
+              }>
+                <Contact />
+              </Suspense>
+            } />
+            <Route path="/resources" element={
+              <Suspense fallback={
+                <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+                  <CircularProgress />
+                </Box>
+              }>
+                <Resources />
+              </Suspense>
+            } />
+            <Route path="/privacy-policy" element={
+              <Suspense fallback={
+                <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+                  <CircularProgress />
+                </Box>
+              }>
+                <PrivacyPolicy />
+              </Suspense>
+            } />
+            <Route path="/terms-of-service" element={
+              <Suspense fallback={
+                <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+                  <CircularProgress />
+                </Box>
+              }>
+                <TermsOfService />
+              </Suspense>
+            } />
+            <Route path="/cookie-policy" element={
+              <Suspense fallback={
+                <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+                  <CircularProgress />
+                </Box>
+              }>
+                <CookiePolicy />
+              </Suspense>
+            } />
           </Routes>
         </Container>
         <Footer />
+        <CookieConsentBanner />
       </Router>
     </ThemeProvider>
   );
+};
+
+// Separate component to manage document head for the home page
+const DocumentHead = () => {
+  const { t } = useTranslation();
+  useDocumentTitle(t("title"));
+  useMetaDescription(t("freeWordCounterDescription"));
+  return null;
 };
 
 export default App;
