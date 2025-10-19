@@ -94,13 +94,13 @@ const CookiePolicy = () => {
         <List>
           <ListItem>
             <ListItemText 
-              primary="Google Analytics" 
+              primary={t("googleAnalytics")} 
               secondary={t("googleAnalyticsDescription")} 
             />
           </ListItem>
           <ListItem>
             <ListItemText 
-              primary="Google AdSense" 
+              primary={t("googleAdSense")} 
               secondary={t("googleAdSenseDescription")} 
             />
           </ListItem>

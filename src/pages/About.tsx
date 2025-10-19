@@ -56,7 +56,7 @@ const About = () => {
             <Link href="/contact" color="secondary" underline="hover">{t("contactUs")}</Link>
             <Link href="/privacy-policy" color="secondary" underline="hover">{t("privacyPolicy")}</Link>
             <Link href="/terms-of-service" color="secondary" underline="hover">{t("termsOfService")}</Link>
-            <Link href="/cookie-policy" color="secondary" underline="hover">Cookie Policy</Link>
+            <Link href="/cookie-policy" color="secondary" underline="hover">{t("cookiePolicy")}</Link>
           </Box>
         </Box>
       </Paper>
