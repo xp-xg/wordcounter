@@ -31,9 +31,7 @@ const App = () => {
 
   // Initialize Google Analytics with user consent
   // In production, replace with your actual GA4 Measurement ID
-  const measurementId =
-    (import.meta as { env: { VITE_GA_MEASUREMENT_ID?: string } }).env
-      ?.VITE_GA_MEASUREMENT_ID || "G-XXXXXXXXXX";
+  const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID || "G-XXXXXXXXXX";
   useGoogleAnalytics(measurementId);
 
   // Initialize error logging
