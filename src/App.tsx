@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   CssBaseline,
@@ -126,6 +126,40 @@ const App = () => {
       },
     },
   });
+
+  useEffect(() => {
+    const loadAdsterraFooterBanner = () => {
+      const container = document.getElementById("adsterra-footer-banner");
+      if (container) {
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.innerHTML = `
+          atOptions = {
+            'key' : 'b8d52d7c0217f7f4533d6cbf0056701a',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        `;
+        container.appendChild(script);
+
+        const invokeScript = document.createElement("script");
+        invokeScript.type = "text/javascript";
+        invokeScript.src =
+          "//www.highperformanceformat.com/b8d52d7c0217f7f4533d6cbf0056701a/invoke.js";
+        container.appendChild(invokeScript);
+      }
+    };
+
+    const timer = setTimeout(() => {
+      loadAdsterraFooterBanner();
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -270,11 +304,10 @@ const App = () => {
         </Container>
         <Box sx={{ textAlign: 'center', py: 2 }}>
           {/* Adsterra Social Bar - Placed before footer */}
-          <div 
-            dangerouslySetInnerHTML={{ __html: `
-              <script type="text/javascript" src="//pl27942047.effectivegatecpm.com/5e/1a/62/5e1a62d6eb8849d640f7e36bdec8e875.js"></script>
-            `}}
-          />
+          <div id="adsterra-social-bar"></div>
+        </Box>
+        <Box sx={{ my: 2, textAlign: "center" }}>
+          <div id="adsterra-footer-banner"></div>
         </Box>
         <Footer />
         <CookieConsentBanner />

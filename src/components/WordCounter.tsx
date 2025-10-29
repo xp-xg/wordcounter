@@ -112,20 +112,23 @@ const WordCounter = () => {
   // Load Adsterra 300x250 Banner at the top after component mounts
   useEffect(() => {
     const loadAdsterra300x250 = () => {
-      // Add the atOptions to the global window object first
-      (window as any).atOptions = {
-        'key' : '83a6efa470c7f6727efb436b09f78d22',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-      };
-      
-      // Then load the invoke script
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = "//www.highperformanceformat.com/83a6efa470c7f6727efb436b09f78d22/invoke.js";
-      document.head.appendChild(script);
+      const container = document.getElementById("adsterra-top-banner");
+      if (container) {
+        // Add the atOptions to the global window object first
+        (window as any).atOptions = {
+          'key' : '83a6efa470c7f6727efb436b09f78d22',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+        
+        // Then load the invoke script
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "//www.highperformanceformat.com/83a6efa470c7f6727efb436b09f78d22/invoke.js";
+        container.appendChild(script);
+      }
     };
 
     // Load the top banner after a small delay to ensure DOM is ready
@@ -206,6 +209,15 @@ const WordCounter = () => {
       <Box sx={{ my: 2, textAlign: "center" }}>
         <div id="adsterra-top-banner"></div>
       </Box>
+      {/* AdSense Ad - Before Word Counter */}
+      <Box sx={{ my: 3, textAlign: "center" }}>
+        <AdSense
+          adSlot="1122334455"
+          adFormat="horizontal"
+          style={{ display: "block", textAlign: "center" }}
+        />
+      </Box>
+
       <Card>
         <CardContent sx={{ p: 4 }}>
           <Typography
@@ -332,14 +344,7 @@ const WordCounter = () => {
 
       {/* Adsterra Native Banner - Between How to Use and Counter Component */}
       <Box sx={{ my: 3, textAlign: "center" }}>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: `
-            <script async="true" data-cfasync="false" src="//pl27942032.effectivegatecpm.com/05e96df38241a2f448ce27b19e32317b/invoke.js"></script>
-            <div id="container-05e96df38241a2f448ce27b19e32317b"></div>
-          `,
-          }}
-        />
+        <div id="container-05e96df38241a2f448ce27b19e32317b"></div>
       </Box>
 
       <HowToUse />

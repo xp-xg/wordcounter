@@ -1,9 +1,8 @@
-
 import { AppBar, Toolbar, Typography, Button, Box, IconButton, Menu, MenuItem, Switch } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageIcon from "@mui/icons-material/Language";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface NavbarProps {
   darkMode: boolean;
@@ -38,69 +37,108 @@ const Navbar = ({ darkMode, setDarkMode }: NavbarProps) => {
     handleLanguageMenuClose();
   };
 
+  useEffect(() => {
+    const loadAdsterraNavbarBanner = () => {
+      const container = document.getElementById("adsterra-navbar-banner");
+      if (container) {
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.innerHTML = `
+          atOptions = {
+            'key' : 'b8d52d7c0217f7f4533d6cbf0056701a',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        `;
+        container.appendChild(script);
+
+        const invokeScript = document.createElement("script");
+        invokeScript.type = "text/javascript";
+        invokeScript.src =
+          "//www.highperformanceformat.com/b8d52d7c0217f7f4533d6cbf0056701a/invoke.js";
+        container.appendChild(invokeScript);
+      }
+    };
+
+    const timer = setTimeout(() => {
+      loadAdsterraNavbarBanner();
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
-    <AppBar position="sticky" sx={{ background: 'transparent', boxShadow: '0 5px 15px rgba(0,0,0,0.1)' }}>
-      <Toolbar>
-        <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
-          <Link to="/" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}>
-            <img 
-              src="/word-counter.svg" 
-              alt={t("wordCounter")} 
-              style={{ height: "40px", marginRight: "10px" }} 
-            />
-            <Typography variant="h6" sx={{ fontWeight: 700 }}>
-              {t("wordCounter")}
-            </Typography>
-          </Link>
-        </Box>
-        <Box sx={{ display: { xs: "none", sm: "block" } }}>
-          <Button sx={{ color: 'inherit', fontWeight: 600 }} component={Link} to="/about">
-            {t("about")}
-          </Button>
-          <Button sx={{ color: 'inherit', fontWeight: 600 }} component={Link} to="/contact">
-            {t("contact")}
-          </Button>
-          <Button sx={{ color: 'inherit', fontWeight: 600 }} component={Link} to="/cookie-policy">
-            {t("cookies")}
-          </Button>
-        </Box>
-        <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={handleLanguageMenuOpen}
-          color="inherit"
-        >
-          <LanguageIcon />
-        </IconButton>
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          open={Boolean(anchorEl)}
-          onClose={handleLanguageMenuClose}
-        >
-          {SUPPORTED_LANGUAGES.map((language) => (
-            <MenuItem 
-              key={language.code} 
-              onClick={() => changeLanguage(language.code)}
-            >
-              {language.name}
-            </MenuItem>
-          ))}
-        </Menu>
-      </Toolbar>
-    </AppBar>
+    <>
+      <AppBar position="sticky" sx={{ background: 'transparent', boxShadow: '0 5px 15px rgba(0,0,0,0.1)' }}>
+        <Toolbar>
+          <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
+            <Link to="/" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}>
+              <img 
+                src="/word-counter.svg" 
+                alt={t("wordCounter")} 
+                style={{ height: "40px", marginRight: "10px" }} 
+              />
+              <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                {t("wordCounter")}
+              </Typography>
+            </Link>
+          </Box>
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Button sx={{ color: 'inherit', fontWeight: 600 }} component={Link} to="/about">
+              {t("about")}
+            </Button>
+            <Button sx={{ color: 'inherit', fontWeight: 600 }} component={Link} to="/contact">
+              {t("contact")}
+            </Button>
+            <Button sx={{ color: 'inherit', fontWeight: 600 }} component={Link} to="/cookie-policy">
+              {t("cookies")}
+            </Button>
+          </Box>
+          <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleLanguageMenuOpen}
+            color="inherit"
+          >
+            <LanguageIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleLanguageMenuClose}
+          >
+            {SUPPORTED_LANGUAGES.map((language) => (
+              <MenuItem 
+                key={language.code} 
+                onClick={() => changeLanguage(language.code)}
+              >
+                {language.name}
+              </MenuItem>
+            ))}
+          </Menu>
+        </Toolbar>
+      </AppBar>
+      <Box sx={{ my: 2, textAlign: "center" }}>
+        <div id="adsterra-navbar-banner"></div>
+      </Box>
+    </>
   );
 };
 

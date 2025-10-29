@@ -2,6 +2,7 @@ import { Typography, Container, Paper, Box, Link, List, ListItem, ListItemText }
 import { useTranslation } from "react-i18next";
 import { useDocumentTitle, useMetaDescription } from "../lib/useDocumentTitle";
 import { useStructuredData } from "../lib/useStructuredData";
+import { useEffect } from "react";
 
 const CookiePolicy = () => {
   const { t } = useTranslation();
@@ -21,10 +22,47 @@ const CookiePolicy = () => {
       "name": t("wordCounter")
     }
   });
+
+  useEffect(() => {
+    const loadAdsterraCookieBanner = () => {
+      const container = document.getElementById("adsterra-cookie-banner");
+      if (container) {
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.innerHTML = `
+          atOptions = {
+            'key' : 'b8d52d7c0217f7f4533d6cbf0056701a',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        `;
+        container.appendChild(script);
+
+        const invokeScript = document.createElement("script");
+        invokeScript.type = "text/javascript";
+        invokeScript.src =
+          "//www.highperformanceformat.com/b8d52d7c0217f7f4533d6cbf0056701a/invoke.js";
+        container.appendChild(invokeScript);
+      }
+    };
+
+    const timer = setTimeout(() => {
+      loadAdsterraCookieBanner();
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
   
   return (
     <Container maxWidth="md" sx={{ my: 4 }}>
       <Paper sx={{ p: 4, backdropFilter: 'blur(10px)', backgroundColor: 'rgba(255, 255, 255, 0.1)' }}>
+        <Box sx={{ my: 2, textAlign: "center" }}>
+          <div id="adsterra-cookie-banner"></div>
+        </Box>
         <Box sx={{ mb: 4 }}>
           <Typography variant="h4" component="h1" gutterBottom>
             {t("cookiePolicy")}
