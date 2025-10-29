@@ -41,11 +41,18 @@ const Navbar = ({ darkMode, setDarkMode }: NavbarProps) => {
   return (
     <AppBar position="sticky" sx={{ background: 'transparent', boxShadow: '0 5px 15px rgba(0,0,0,0.1)' }}>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 700 }}>
-          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-            {t("wordCounter")}
+        <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
+          <Link to="/" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}>
+            <img 
+              src="/word-counter.svg" 
+              alt={t("wordCounter")} 
+              style={{ height: "40px", marginRight: "10px" }} 
+            />
+            <Typography variant="h6" sx={{ fontWeight: 700 }}>
+              {t("wordCounter")}
+            </Typography>
           </Link>
-        </Typography>
+        </Box>
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
           <Button sx={{ color: 'inherit', fontWeight: 600 }} component={Link} to="/about">
             {t("about")}

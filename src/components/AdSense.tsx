@@ -36,7 +36,7 @@ const AdSense = ({
     <ins
       className="adsbygoogle"
       style={style}
-      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+      data-ad-client="ca-pub-9891009708137483"
       data-ad-slot={adSlot}
       data-ad-format={adFormat}
       data-full-width-responsive={fullWidthResponsive ? 'true' : 'false'}

@@ -1,14 +1,14 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import ErrorBoundary from './components/ErrorBoundary';
+import App from './App';
 import './i18n';
+import { HelmetProvider } from 'react-helmet-async';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ErrorBoundary>
+    <HelmetProvider>
       <App />
-    </ErrorBoundary>
-  </React.StrictMode>,
-)
+    </HelmetProvider>
+  </React.StrictMode>
+);

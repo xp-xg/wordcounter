@@ -45,10 +45,16 @@ The "Word Counter" is a modern web application built using React and Material-UI
     *   Hindi (`hi`)
 *   **Stopwords:** The keyword density feature uses a dedicated list of stopwords for each supported language (`src/lib/stopwords.ts`) to provide more accurate results.
 
-## Current Request: Remove Grammar Checker
+## Ad Implementation
 
-The user requested to remove the Grammar & Spell Check feature from the application.
+The application integrates with Google AdSense and Adsterra to display ads. The following components are used to render the ads:
 
-### Plan and Steps Implemented
+*   **`AdBanner.tsx`:** A component for displaying banner ads.
+*   **`AdSense.tsx`:** A component for integrating with Google AdSense.
+*   **`NativeAd.tsx`:** A component for displaying native ads.
 
-1.  **Updated Navigation:** Removed the "Grammar & Spell Check" link from `src/components/Navbar.tsx`.
+The ads are placed in the following locations:
+
+*   **Header:** A banner ad is displayed at the top of the page.
+*   **Footer:** A banner ad is displayed at the bottom of the page.
+*   **WordCounter:** A banner ad is displayed after the statistics section.

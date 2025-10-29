@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://word-ctr.web.app/sitemap.xml
+
+# Disallow admin or private sections if they exist
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+
+# Crawl-delay: 10 (if needed to reduce server load)
